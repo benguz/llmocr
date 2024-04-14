@@ -39,7 +39,7 @@
         font-size: 1.9em;
     }
 .button, ::file-selector-button {
-    padding: 0.75em;
+    padding: 0.55em;
   border: none;
   border-radius: 3px;
   cursor: pointer;
@@ -47,7 +47,9 @@
   -webkit-box-shadow: 0 0 10px #fff;
   box-shadow: 0 0 10px #fff;
   margin-bottom: 40px;
-  font-size: 1.3em;
+  font-size: 1em;
+  font-family: Poppins, sans-serif;
+
 }
 
 #response {
@@ -61,12 +63,13 @@
     <h1>
         OCR and text organization for archival documents
     </h1>
-    <div>
-        <p>Upload all jpg files for one document</p>
+    <div style="display: flex; flex-direction: row; align-items: flex-start; justify-content: center;">
+        <p style="margin-right: 10px; margin-top: 3px;">Upload all jpg files for one document</p> 
+        
         <input type="file" id="imageUpload" name="images" multiple accept="image/jpeg">
     </div>
 
-    <button class="button" onclick="uploadImages()">Upload Images</button>
+    <button class="button" onclick="uploadImages()">Run OCR</button>
 
     <div id="loading" style="display: none">loading! this should take about 5 minutes per image</div>
     <div id="response"></div>
