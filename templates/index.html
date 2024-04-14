@@ -26,36 +26,72 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 
 <style>
+    body {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        font-family: Poppins, sans-serif;
+        min-height: 100vh;
+    }
+    h1 {
+        font-weight:600;
+        font-size: 1.9em;
+    }
+.button, ::file-selector-button {
+    padding: 0.75em;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  background-color: rgba(163, 216, 199, 0.616);
+  -webkit-box-shadow: 0 0 10px #fff;
+  box-shadow: 0 0 10px #fff;
+  margin-bottom: 40px;
+  font-size: 1.3em;
+}
 
+#response {
+    min-height: 200px;
+    max-width: 98%;
+}
 </style>
 </head>
 
 <body class="body" >
-    <input type="file" id="imageUpload" name="images" multiple accept="image/jpeg">
-    <button onclick="uploadImages()">Upload Images</button>
+    <h1>
+        OCR and text organization for archival documents
+    </h1>
+    <div>
+        <p>Upload all jpg files for one document</p>
+        <input type="file" id="imageUpload" name="images" multiple accept="image/jpeg">
+    </div>
+
+    <button class="button" onclick="uploadImages()">Upload Images</button>
+
+    <div id="loading" style="display: none">loading! this should take about 5 minutes per image</div>
     <div id="response"></div>
-<script src="/static/script.js">
-    
-</script>
+
 <script>
     function uploadImages() {
-    const input = document.getElementById('imageUpload');
-    const data = new FormData();
-    for (const file of input.files) {
-        data.append('images', file);
-    }
+        document.getElementById('loading').style.display = "block";
+        const input = document.getElementById('imageUpload');
+        const data = new FormData();
+        for (const file of input.files) {
+            data.append('images', file);
+        }
 
-    fetch("/run_ocr", {
-        method: 'POST',
-        body: data
-    }).then(response => response.text())  
-    .then(text => {
-        document.getElementById('response').innerText = text;
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-}
+        fetch("/run_ocr", {
+            method: 'POST',
+            body: data
+        }).then(response => response.text())  
+        .then(text => {
+            document.getElementById('loading').style.display = "none";
+            document.getElementById('response').innerText = text;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
 
 </script>
 

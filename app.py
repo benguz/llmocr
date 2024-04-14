@@ -3,7 +3,7 @@ from PIL import ImageEnhance, Image
 # import pytesseract
 import base64
 import requests
-import openai
+from openai import OpenAI
 import io
 import os
 import json
